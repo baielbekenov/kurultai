@@ -1,12 +1,8 @@
 from django.urls import path
-
 from kurultai import views
-from kurultai.feeds import LatestPostsFeed, AtomSiteNewsFeed
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path("feed/rss", LatestPostsFeed(), name="post_feed"),
-    path("feed/atom", AtomSiteNewsFeed()),
     path('register/', views.register, name='register'),
     path('login/', views.loginpage, name='login'),
     path('logout/', views.logoutpage, name='logout'),

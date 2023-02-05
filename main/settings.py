@@ -1,10 +1,6 @@
 import os
 from pathlib import Path
 
-from django.contrib.auth import get_user_model
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,11 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sitemaps',
-    'debug_toolbar',
     'kurultai',
     'crispy_forms',
-    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -50,9 +43,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'main.urls'
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
 
 TEMPLATES = [
     {
@@ -136,7 +126,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-X_FRAME_OPTIONS = "SAMEORIGIN"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
