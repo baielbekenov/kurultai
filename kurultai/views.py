@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode
 from django.views import generic
 
-from .forms import UserRegisterForm, RubricForm, CommentForm
+from .forms import UserRegisterForm, RubricForm, CommentForm, Comment_mode_Form
 from .models import Account, Rubrics, Post, Comment
 
 
@@ -124,18 +124,20 @@ def commentlist(request):
 
 
 def updatecomment(request, pk):
-    data = get_object_or_404(Comment, id=pk)
-    form = CommentForm(instance=data)
+    if request.user.is_superuser:
+        data = get_object_or_404(Comment, id=pk)
+        form = Comment_mode_Form(instance=data)
 
-    if request.method == "POST":
-        form = CommentForm(request.POST, instance=data)
-        if form.is_valid():
-            form.save()
-            return redirect ('commentlist')
-    context = {
-        "form":form
-    }
-    return render(request, 'updatecomment.html', context)
+        if request.method == "POST":
+            form = Comment_mode_Form(request.POST, instance=data)
+            if form.is_valid():
+                form.save()
+                return redirect ('commentlist')
+        context = {
+            "form":form
+        }
+        return render(request, 'updatecomment.html', context)
+    return HttpResponse('Imposible to ahead')
 
 
 # During production, the domain, site name, protocol, and from email address will need to be changed.
@@ -172,5 +174,5 @@ def password_reset_request(request):
     return render(request=request, template_name="password/password_reset.html", context={"password_reset_form": password_reset_form})
 
 
-def heello():
-    pass
+
+
